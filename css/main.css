@@ -72,6 +72,8 @@ meter {
   --clr-main-header-text: var(--clr-white);
   --clr-footer-text: var(--clr-white);
   --modal-bg-colour: var(--clr-white);
+  --board-cell-size: 10rem;
+  --symbol-size: calc(var(--board-cell-size) * 0.8);
   --clr-dark-green: #264653;
   --clr-green: #2a9d8f;
   --clr-yellow: #e9c46a;
@@ -149,26 +151,66 @@ body {
 
 .game__board {
   display: grid;
-  grid-template-rows: repeat(3, 10rem);
-  grid-template-columns: repeat(3, 10rem);
+  grid-template-columns: repeat(3, auto);
+  justify-items: center;
+  align-items: center;
   gap: 2rem;
 }
-.game__board-item {
-  display: grid;
-  place-items: center;
-  font-size: var(--fnt-sz-symbols);
-  font-weight: var(--fnt-wt-300);
-  background: var(--clr-light-grey);
-  border-radius: 2rem;
-  transition: 0.4s ease;
-}
-.game__board-item:hover {
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+.game__board-cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: var(--board-cell-size);
+  aspect-ratio: 1;
+  position: relative;
   cursor: pointer;
 }
-.game__board-icon {
-  width: 5rem;
+
+.symbolX::before, .symbolX::after {
+  content: "";
+  height: var(--symbol-size);
+  width: calc(var(--symbol-size) * 0.1);
+  background: var(--clr-dark-grey);
+  position: absolute;
+}
+.symbolX::before {
+  transform: rotate(45deg);
+}
+.symbolX::after {
+  transform: rotate(-45deg);
+}
+
+.symbolO::before {
+  content: "";
+  border-radius: 100rem;
+  position: absolute;
+}
+.symbolO::before {
+  height: calc(var(--symbol-size) * 0.7);
   aspect-ratio: 1;
+  box-shadow: 0 0 0 0.8rem var(--clr-dark-grey);
+}
+
+.game__board.turnX .game__board-cell:hover::before,
+.game__board.turnX .game__board-cell:hover::after {
+  content: "";
+  height: var(--symbol-size);
+  width: calc(var(--symbol-size) * 0.1);
+  background: var(--clr-dark-grey);
+  position: absolute;
+}
+
+.game__board.turnX .game__board-cell:hover::before {
+  transform: rotate(45deg);
+}
+
+.game__board.turnX .game__board-cell:hover::after {
+  transform: rotate(-45deg);
+}
+
+.symbolX,
+.symbolO {
+  cursor: not-allowed;
 }
 
 .footer {
@@ -250,4 +292,29 @@ body {
 
 .hidden {
   display: none;
+}
+
+.modern {
+  background: var(--clr-light-grey);
+  border-radius: 2rem;
+  transition: 0.4s ease;
+}
+.modern:hover {
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+}
+
+.traditional {
+  border: 1px solid var(--clr-dark-grey);
+}
+.traditional:first-child, .traditional:nth-child(2), .traditional:nth-child(3) {
+  border-top: none;
+}
+.traditional:nth-child(3n+1) {
+  border-left: none;
+}
+.traditional:nth-child(3n+3) {
+  border-right: none;
+}
+.traditional:nth-child(7), .traditional:nth-child(8), .traditional:last-child {
+  border-bottom: none;
 }/*# sourceMappingURL=main.css.map */

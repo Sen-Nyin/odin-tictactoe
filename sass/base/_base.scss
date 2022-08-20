@@ -9,6 +9,8 @@
   --clr-main-header-text: var(--clr-white);
   --clr-footer-text: var(--clr-white);
   --modal-bg-colour: var(--clr-white);
+  --board-cell-size: 10rem;
+  --symbol-size: calc(var(--board-cell-size) * 0.8);
 
   --clr-dark-green: #264653;
   --clr-green: #2a9d8f;
