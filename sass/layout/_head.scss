@@ -1,1 +1,8 @@
 @use '../abstracts/' as a;
+
+.header {
+  color: var(--clr-main-header-text);
+  text-align: center;
+  padding: 3rem;
+  background: var(--clr-orange);
+}

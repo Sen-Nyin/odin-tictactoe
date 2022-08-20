@@ -1,1 +1,9 @@
 @use '../abstracts/' as a;
+
+.footer {
+  font-size: var(--fnt-sz-footer-text);
+  color: var(--clr-footer-text);
+  text-align: center;
+  padding: 3rem;
+  background: var(--clr-dark-green);
+}

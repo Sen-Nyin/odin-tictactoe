@@ -1,1 +1,43 @@
 @use '../abstracts/' as a;
+
+:root {
+  font-size: 62.5%;
+
+  // colour
+
+  --clr-text-default: var(--clr-dark-grey);
+  --clr-main-header-text: var(--clr-white);
+  --clr-footer-text: var(--clr-white);
+  --modal-bg-colour: var(--clr-white);
+
+  --clr-dark-green: #264653;
+  --clr-green: #2a9d8f;
+  --clr-yellow: #e9c46a;
+  --clr-peach: #f4a261;
+  --clr-orange: #e76f51;
+  --clr-white: #fdfffc;
+  --clr-dark-grey: #343a40;
+  --clr-light-grey: #e9ecef;
+  --clr-super-light-grey: #f8f9fa;
+
+  // font
+
+  --fnt-fm-default: 'Comfortaa', cursive;
+  --fnt-sz-main-header: 4rem;
+  --fnt-sz-text-default: 1.6rem;
+  --fnt-sz-footer-text: 1.4rem;
+  --fnt-sz-symbols: 5rem;
+
+  --fnt-wt-300: 300;
+  --fnt-wt-400: 400;
+  --fnt-wt-700: 700;
+}
+
+body {
+  font-family: var(--fnt-fm-default);
+  font-size: var(--fnt-sz-text-default);
+  color: var(--clr-text-default);
+  display: grid;
+  grid-template-rows: max-content 1fr max-content;
+  min-height: 100vh;
+}
