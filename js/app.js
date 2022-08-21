@@ -39,15 +39,10 @@ const gameController = (function () {
     return turn;
   };
 
-  const checkWin = (currentMarker, cells) => {
-    console.log(
-      winConditions.some((condition) => {
-        return condition.every((cell) => {
-          return cells[cell].classList.contains(currentMarker);
-        });
-      })
+  const checkWin = (currentMarker, cells) =>
+    winConditions.some((condition) =>
+      condition.every((cell) => cells[cell].classList.contains(currentMarker))
     );
-  };
 
   return { getTurn, switchTurn, checkWin, updateGameBoard };
 })();
@@ -61,11 +56,16 @@ const displayController = (function () {
   const gameCells = document.querySelectorAll('[data-game-cell]');
   const gameBoard = document.querySelector('#game-board');
 
-  const gameStart = () => {
+  const startGame = () => {
     gameCells.forEach((cell) =>
       cell.addEventListener('click', clickCell, { once: true })
     );
     updateBoardClass();
+  };
+  const stopGame = () => {
+    gameCells.forEach((cell) =>
+      cell.removeEventListener('click', clickCell, { once: true })
+    );
   };
 
   const clickCell = function (e) {
@@ -74,7 +74,10 @@ const displayController = (function () {
     getCurrentMarker();
     displaySymbol(cell, currentMarker);
     // TODO check win
-    gameController.checkWin(currentMarker, gameCells);
+    if (gameController.checkWin(currentMarker, gameCells)) {
+      stopGame();
+    }
+
     // TODO check draw
     // TODO switch turn
     gameController.switchTurn();
@@ -92,5 +95,5 @@ const displayController = (function () {
   const displaySymbol = function (cell, marker) {
     cell.classList.add(marker);
   };
-  gameStart();
+  startGame();
 })();
