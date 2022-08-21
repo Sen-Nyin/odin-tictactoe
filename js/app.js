@@ -8,7 +8,6 @@ function playerFactory(name, symbol) {
   };
 
   const person = Object.create(personPrototype);
-  person.moves = [];
 
   return person;
 }
@@ -26,7 +25,6 @@ const gameController = (function () {
     [0, 4, 8],
     [2, 4, 6],
   ];
-  const gameBoard = new Array(9);
 
   const updateGameBoard = (index) => {
     gameBoard.fill(turn, index, index + 1);
@@ -41,7 +39,15 @@ const gameController = (function () {
     return turn;
   };
 
-  const checkWin = () => {};
+  const checkWin = (currentMarker, cells) => {
+    console.log(
+      winConditions.some((condition) => {
+        return condition.every((cell) => {
+          return cells[cell].classList.contains(currentMarker);
+        });
+      })
+    );
+  };
 
   return { getTurn, switchTurn, checkWin, updateGameBoard };
 })();
@@ -55,12 +61,20 @@ const displayController = (function () {
   const gameCells = document.querySelectorAll('[data-game-cell]');
   const gameBoard = document.querySelector('#game-board');
 
+  const gameStart = () => {
+    gameCells.forEach((cell) =>
+      cell.addEventListener('click', clickCell, { once: true })
+    );
+    updateBoardClass();
+  };
+
   const clickCell = function (e) {
     const cell = e.target;
     // add mark
     getCurrentMarker();
     displaySymbol(cell, currentMarker);
     // TODO check win
+    gameController.checkWin(currentMarker, gameCells);
     // TODO check draw
     // TODO switch turn
     gameController.switchTurn();
@@ -78,9 +92,5 @@ const displayController = (function () {
   const displaySymbol = function (cell, marker) {
     cell.classList.add(marker);
   };
-
-  gameCells.forEach((cell) =>
-    cell.addEventListener('click', clickCell, { once: true })
-  );
-  updateBoardClass();
+  gameStart();
 })();
