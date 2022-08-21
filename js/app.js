@@ -5,12 +5,6 @@ function playerFactory(name, symbol) {
     setName(name) {
       this.name = name;
     },
-    setSymbol(symbol) {
-      this.symbol = symbol;
-    },
-    setMove(id) {
-      this.moves.push(id);
-    },
   };
 
   const person = Object.create(personPrototype);
@@ -18,7 +12,75 @@ function playerFactory(name, symbol) {
 
   return person;
 }
+// Game Controller
 
-const displayController = (function () {})();
+const gameController = (function () {
+  let turn = 'x';
+  const winConditions = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ];
+  const gameBoard = new Array(9);
 
-const gameController = (function () {})();
+  const updateGameBoard = (index) => {
+    gameBoard.fill(turn, index, index + 1);
+    console.log(gameBoard);
+  };
+
+  const switchTurn = () => {
+    turn = turn === 'x' ? 'o' : 'x';
+  };
+
+  const getTurn = () => {
+    return turn;
+  };
+
+  const checkWin = () => {};
+
+  return { getTurn, switchTurn, checkWin, updateGameBoard };
+})();
+
+// Display Controller
+
+const displayController = (function () {
+  const xClass = 'symbolX';
+  const oClass = 'symbolO';
+  let currentMarker = xClass;
+  const gameCells = document.querySelectorAll('[data-game-cell]');
+  const gameBoard = document.querySelector('#game-board');
+
+  const clickCell = function (e) {
+    const cell = e.target;
+    // add mark
+    getCurrentMarker();
+    displaySymbol(cell, currentMarker);
+    // TODO check win
+    // TODO check draw
+    // TODO switch turn
+    gameController.switchTurn();
+    updateBoardClass();
+  };
+  const getCurrentMarker = () => {
+    const currentTurn = gameController.getTurn();
+    currentMarker = currentTurn === 'x' ? xClass : oClass;
+  };
+  const updateBoardClass = () => {
+    getCurrentMarker();
+    gameBoard.classList.remove(xClass, oClass);
+    gameBoard.classList.add(currentMarker);
+  };
+  const displaySymbol = function (cell, marker) {
+    cell.classList.add(marker);
+  };
+
+  gameCells.forEach((cell) =>
+    cell.addEventListener('click', clickCell, { once: true })
+  );
+  updateBoardClass();
+})();
