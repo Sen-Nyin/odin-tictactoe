@@ -24,10 +24,10 @@ const gameController = (function () {
     [0, 4, 8],
     [2, 4, 6],
   ];
-  const updateGameBoard = (index) => {
-    gameBoard.fill(turn, index, index + 1);
-    console.log(gameBoard);
-  };
+  // const updateGameBoard = (index) => {
+  //   gameBoard.fill(turn, index, index + 1);
+  //   console.log(gameBoard);
+  // };
   const switchTurn = () => {
     turn = turn === 'x' ? 'o' : 'x';
   };
@@ -46,7 +46,7 @@ const gameController = (function () {
         cell.classList.contains('symbolX') || cell.classList.contains('symbolO')
     );
   };
-  return { getTurn, switchTurn, checkWin, updateGameBoard, checkDraw };
+  return { getTurn, switchTurn, checkWin, checkDraw };
 })();
 
 // Display Controller
