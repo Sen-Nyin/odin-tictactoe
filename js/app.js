@@ -8,6 +8,9 @@ function playerFactory(name, symbol) {
     setSymbol(symbol) {
       this.symbol = symbol;
     },
+    setMove(id) {
+      this.moves.push(id);
+    },
   };
 
   const person = Object.create(personPrototype);
