@@ -77,14 +77,13 @@ const displayController = (function () {
     if (gameController.checkWin(currentMarker, gameCells)) {
       stopGame();
       console.log('Winner');
-    }
-    // TODO check draw
-    if (gameController.checkDraw(gameCells)) {
+    } else if (gameController.checkDraw(gameCells)) {
       stopGame();
       console.log('Draw');
+    } else {
+      gameController.switchTurn();
+      updateBoardClass();
     }
-    gameController.switchTurn();
-    updateBoardClass();
   };
   const getCurrentMarker = () => {
     const currentTurn = gameController.getTurn();
