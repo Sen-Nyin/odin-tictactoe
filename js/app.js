@@ -1,4 +1,5 @@
 'use strict';
+// Player factory
 
 function playerFactory(name, symbol) {
   const personPrototype = {
@@ -6,9 +7,7 @@ function playerFactory(name, symbol) {
       this.name = name;
     },
   };
-
   const person = Object.create(personPrototype);
-
   return person;
 }
 // Game Controller
@@ -25,26 +24,29 @@ const gameController = (function () {
     [0, 4, 8],
     [2, 4, 6],
   ];
-
   const updateGameBoard = (index) => {
     gameBoard.fill(turn, index, index + 1);
     console.log(gameBoard);
   };
-
   const switchTurn = () => {
     turn = turn === 'x' ? 'o' : 'x';
   };
-
   const getTurn = () => {
     return turn;
   };
-
   const checkWin = (currentMarker, cells) =>
     winConditions.some((condition) =>
       condition.every((cell) => cells[cell].classList.contains(currentMarker))
     );
 
-  return { getTurn, switchTurn, checkWin, updateGameBoard };
+  const checkDraw = (cells) => {
+    const cellsArr = Array.from(cells);
+    return cellsArr.every(
+      (cell) =>
+        cell.classList.contains('symbolX') || cell.classList.contains('symbolO')
+    );
+  };
+  return { getTurn, switchTurn, checkWin, updateGameBoard, checkDraw };
 })();
 
 // Display Controller
@@ -60,6 +62,7 @@ const displayController = (function () {
     gameCells.forEach((cell) =>
       cell.addEventListener('click', clickCell, { once: true })
     );
+    currentMarker = xClass;
     updateBoardClass();
   };
   const stopGame = () => {
@@ -67,19 +70,19 @@ const displayController = (function () {
       cell.removeEventListener('click', clickCell, { once: true })
     );
   };
-
   const clickCell = function (e) {
     const cell = e.target;
-    // add mark
     getCurrentMarker();
     displaySymbol(cell, currentMarker);
-    // TODO check win
     if (gameController.checkWin(currentMarker, gameCells)) {
       stopGame();
+      console.log('Winner');
     }
-
     // TODO check draw
-    // TODO switch turn
+    if (gameController.checkDraw(gameCells)) {
+      stopGame();
+      console.log('Draw');
+    }
     gameController.switchTurn();
     updateBoardClass();
   };
