@@ -24,8 +24,8 @@
 
   &__form {
     margin-top: 6rem;
-    display: grid;
-    align-items: center;
+    display: flex;
+    flex-direction: column;
     background: var(--clr-super-light-grey);
     border-radius: 2rem;
     padding: 2rem;
