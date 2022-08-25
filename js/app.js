@@ -159,11 +159,16 @@ const displayController = (function () {
     const player2NameLabel = document.getElementById('p2nameDisplay');
     const player1NameInput = document.getElementById('p1nameInput');
     const player2NameInput = document.getElementById('p2nameInput');
-    if (player1NameInput.value && player2NameInput.value) {
+    const aiCheck = document.getElementById('playai');
+    if (
+      (player1NameInput.value && player2NameInput.value) ||
+      (player1NameInput.value && aiCheck.checked)
+    ) {
+      const p2name = aiCheck.checked ? 'Computer' : player2NameInput.value;
       gameController.player1.setName(player1NameInput.value);
-      gameController.player2.setName(player2NameInput.value);
+      gameController.player2.setName(p2name);
       player1NameLabel.textContent = player1NameInput.value;
-      player2NameLabel.textContent = player2NameInput.value;
+      player2NameLabel.textContent = p2name;
       modal.classList.add('hidden');
       overlay.classList.add('hidden');
       startGame();
