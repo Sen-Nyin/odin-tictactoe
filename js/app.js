@@ -1,21 +1,21 @@
 'use strict';
 
 const gameController = (function () {
+  const personPrototype = {
+    setName(name) {
+      this.name = name;
+    },
+    getName() {
+      return this.name;
+    },
+    setWins() {
+      this.wins++;
+    },
+    getWins() {
+      return this.wins;
+    },
+  };
   function playerFactory() {
-    const personPrototype = {
-      setName(name) {
-        this.name = name;
-      },
-      getName() {
-        return this.name;
-      },
-      setWins() {
-        this.wins++;
-      },
-      getWins() {
-        return this.wins;
-      },
-    };
     const person = Object.create(personPrototype);
     person.wins = 0;
     return person;
@@ -38,8 +38,8 @@ const gameController = (function () {
     currentBoard.fill(i, i, i + 1);
   }
   console.log('Board:', currentBoard);
-  const getAvailableMoves = () =>
-    currentBoard.filter((cell) => cell !== 'x' && cell !== 'o');
+  const getAvailableMoves = (board) =>
+    board.filter((cell) => cell !== 'x' && cell !== 'o');
 
   const updateCurrentBoard = (cells) => {
     cells.forEach((cell, index) => {
@@ -68,18 +68,69 @@ const gameController = (function () {
         cell.classList.contains('symbolX') || cell.classList.contains('symbolO')
     );
   };
-  const minimax = (symbol) => {
-    const tempBoard = gameBoard;
+  const minimax = (currentBoard, symbol) => {
+    const tempBoard = currentBoard;
     // available cells
-    const availMoves = getAvailableMoves();
+    const availMoves = getAvailableMoves(tempBoard);
     // check for terminal states
     if (checkWin('o', tempBoard)) {
-      return 10;
+      return { score: 10 };
     } else if (checkWin('x', tempBoard)) {
-      return -10;
-    } else if (availMoves === 0) {
-      return 0;
+      return { score: -10 };
+    } else if (availMoves.length === 0) {
+      return { score: 0 };
     }
+    // collect outcomes
+    const moves = [];
+
+    // loop through available moves
+    for (let i = 0; i < availMoves.length; i++) {
+      // object to store score and index of that score
+      const move = {};
+      move.index = tempBoard[availMoves[i]];
+      // apply symbol to emtpy cell
+      tempBoard[availMoves[i]] = symbol;
+      // use recursion to obtain scores from options
+      if (symbol === 'o') {
+        let outcome = minimax(tempBoard, 'x');
+        move.score = outcome.score;
+      } else {
+        let outcome = minimax(tempBoard, 'o');
+        move.score = outcome.score;
+      }
+      // reset spot back to empty
+      tempBoard[availMoves[i]] = move.index;
+      // add the outcome to array
+      moves.push(move);
+    }
+    // check for best move
+    let bestMove;
+    if (symbol === 'o') {
+      let bestScore = -10000;
+      for (let i = 0; i < moves.length; i++) {
+        if (moves[i].score > bestScore) {
+          bestScore = moves[i].score;
+          bestMove = i;
+        }
+      }
+    } else {
+      let bestScore = 10000;
+      for (let i = 0; i < moves.length; i++) {
+        if (moves[i].score < bestScore) {
+          bestScore = moves[i].score;
+          bestMove = i;
+        }
+      }
+    }
+    return moves[bestMove];
+  };
+  const aiPlay = (cells) => {
+    console.log(cells);
+    const move = minimax(currentBoard, turn);
+    displayController.displaySymbol(cells[move.index]);
+    currentBoard.fill(turn, move.index, move.index + 1);
+    displayController.checkStatus();
+    console.log(move);
   };
   return {
     getTurn,
@@ -89,6 +140,7 @@ const gameController = (function () {
     updateCurrentBoard,
     player1,
     player2,
+    aiPlay,
   };
 })();
 
@@ -137,24 +189,32 @@ const displayController = (function () {
     arr.forEach((cell) => gameCells[cell].classList.add('winner'));
   };
   const clickCell = function (e) {
-    console.log(e);
-    const cell = e.target;
-    getCurrentMarker();
-    displaySymbol(cell, currentMarker);
-    gameController.updateCurrentBoard(gameCells);
+    if (
+      gameController.getTurn() === 'x' ||
+      (gameController.getTurn() === 'o' &&
+        gameController.player2.name !== 'Computer')
+    ) {
+      const cell = e.target;
+      displaySymbol(cell);
+      gameController.updateCurrentBoard(gameCells);
+      checkStatus();
+      if (
+        gameController.getTurn() === 'o' &&
+        gameController.player2.name === 'Computer'
+      ) {
+        console.log('doing ai play');
+        gameController.aiPlay(gameCells);
+      }
+    }
+  };
+  const checkStatus = () => {
     const checkWinResult = gameController.checkWin(gameController.getTurn());
-    console.log(checkWinResult);
     if (checkWinResult) {
       stopGame();
       highlightWinCells(checkWinResult);
-      const winner =
-        gameController.getTurn() === 'x'
-          ? gameController.player1.getName()
-          : gameController.player2.getName();
-      gameController.getTurn() === 'x'
-        ? gameController.player1.setWins()
-        : gameController.player2.setWins();
-      setTimeout(() => displayResult(winner), 1500);
+      updateWins();
+      gameController.switchTurn();
+      setTimeout(() => displayResult('win'), 1500);
     } else if (gameController.checkDraw(gameCells)) {
       stopGame();
       setTimeout(() => displayResult('tie'), 1500);
@@ -171,12 +231,16 @@ const displayController = (function () {
     }
     const resultElement = document.createElement('h2');
     resultElement.classList.add('modal__title');
-    if (text === 'tie') {
-      resultElement.textContent = `It's a TIE!`;
-    } else {
+    if (text === 'win') {
+      const winner =
+        gameController.getTurn() === 'x'
+          ? gameController.player1.getName()
+          : gameController.player2.getName();
       player1ScoreEle.textContent = gameController.player1.getWins();
       player2ScoreEle.textContent = gameController.player2.getWins();
-      resultElement.textContent = `${text} is the winner!`;
+      resultElement.textContent = `${winner} is the winner!`;
+    } else if (text === 'tie') {
+      resultElement.textContent = `It's a TIE!`;
     }
     const playAgainBtn = document.createElement('button');
     playAgainBtn.classList.add('btn');
@@ -192,6 +256,11 @@ const displayController = (function () {
     modal.classList.remove('hidden');
     overlay.classList.remove('hidden');
   };
+  const updateWins = () => {
+    gameController.getTurn() === 'x'
+      ? gameController.player1.setWins()
+      : gameController.player2.setWins();
+  };
   const playAgain = () => {
     modal.classList.add('hidden');
     overlay.classList.add('hidden');
@@ -206,7 +275,10 @@ const displayController = (function () {
     gameBoard.classList.remove(xClass, oClass);
     gameBoard.classList.add(currentMarker);
   };
-  const displaySymbol = function (cell, marker) {
-    cell.classList.add(marker);
+  const displaySymbol = function (cell) {
+    getCurrentMarker();
+    cell.classList.add(currentMarker);
+    cell.removeEventListener('click', clickCell, { once: true });
   };
+  return { updateBoardClass, displaySymbol, checkStatus };
 })();
