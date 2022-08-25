@@ -218,7 +218,6 @@ const displayController = (function () {
       stopGame();
       highlightWinCells(checkWinResult);
       updateWins();
-      gameController.switchTurn();
       setTimeout(() => displayResult('win'), 1500);
     } else if (gameController.checkDraw(gameCells)) {
       stopGame();
@@ -244,6 +243,7 @@ const displayController = (function () {
       player1ScoreEle.textContent = gameController.player1.getWins();
       player2ScoreEle.textContent = gameController.player2.getWins();
       resultElement.textContent = `${winner} is the winner!`;
+      gameController.switchTurn();
     } else if (text === 'tie') {
       resultElement.textContent = `It's a TIE!`;
     }
