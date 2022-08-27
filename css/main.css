@@ -317,6 +317,8 @@ body {
 
 .overlay {
   position: fixed;
+  display: grid;
+  place-items: center;
   top: 0;
   left: 0;
   width: 100%;
@@ -325,6 +327,23 @@ body {
   backdrop-filter: blur(4px);
   z-index: 100;
   transition: all 0.5s;
+}
+
+.outcome {
+  display: grid;
+  grid-template-areas: "outcometext outcometext" "replaybtn newgamebtn";
+  gap: 2rem;
+}
+.outcome__text {
+  grid-area: outcometext;
+  font-size: 5rem;
+  color: var(--clr-white);
+}
+.outcome__replay {
+  grid-area: replaybtn;
+}
+.outcome__newgame {
+  grid-area: newgamebtn;
 }
 
 .btn {
