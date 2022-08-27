@@ -132,9 +132,20 @@ const gameController = (function () {
       const move = minimax(currentGameBoard, turn);
       displayController.displayPlayerSymbol(cells[move.index]);
       currentGameBoard.fill(turn, move.index, move.index + 1);
-      console.log('AVAILABLE MOVES', availableMoves(currentGameBoard));
-      if (checkGameState(turn)) {
-        displayController.displayRoundOutcome(checkGameState(turn), turn);
+      const gameStatus = checkGameState(turn);
+      if (gameStatus) {
+        if (gameStatus.status === 'win') {
+          displayController.highlightWinningCells(gameStatus.winningCells);
+        }
+        const currentTurn = turn;
+        setTimeout(
+          () =>
+            displayController.displayRoundOutcome(
+              gameStatus.status,
+              currentTurn
+            ),
+          1500
+        );
       } else {
         switchTurn();
         displayController.updateBoardClass();
@@ -341,8 +352,10 @@ const displayController = (function () {
   };
   const getCellList = () => document.querySelectorAll('.game__board-cell');
 
-  const highlightWinningCells = (cells, winningCells) =>
+  const highlightWinningCells = (winningCells) => {
+    const cells = getCellList();
     winningCells.forEach((index) => cells[index].classList.add('winner'));
+  };
   const updateScores = () => {
     const p1scoreElement = document.getElementById('p1score');
     const p2scoreElement = document.getElementById('p2score');
@@ -363,7 +376,7 @@ const displayController = (function () {
       if (gameStatus) {
         stopGame();
         if (gameStatus.status === 'win') {
-          highlightWinningCells(getCellList(), gameStatus.winningCells);
+          highlightWinningCells(gameStatus.winningCells);
           updateScores();
         }
         setTimeout(
@@ -386,5 +399,10 @@ const displayController = (function () {
   // event listners
   startButton.addEventListener('click', displaySetupForm);
 
-  return { displayPlayerSymbol, displayRoundOutcome, updateBoardClass };
+  return {
+    displayPlayerSymbol,
+    displayRoundOutcome,
+    updateBoardClass,
+    highlightWinningCells,
+  };
 })();
