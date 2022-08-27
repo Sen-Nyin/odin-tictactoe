@@ -9,56 +9,11 @@
     <title>Tic Tac Toe | The Odin Project</title>
   </head>
   <body>
-    <header class="header"><h1 class="header__main">Tic Tac Toe</h1></Tic></header>
     <main class="main">
-      <section class="scores">
-        <span class="scores__player-name" id="p1nameDisplay">Player 1</span>
-        <span class="scores__score" id="p1score">0</span>
-        <span class="vs">Vs</span>
-        <span class="scores__score" id="p2score">0</span>
-        <span class="scores__player-name" id="p2nameDisplay">Player 2</span>
-
-      </section>
-      <section class="game">
-        <div class="game__board" id="game-board">
-          <div class="game__board-cell modern " data-game-cell></div>
-          <div class="game__board-cell modern " data-game-cell></div>
-          <div class="game__board-cell modern " data-game-cell></div>
-          <div class="game__board-cell modern " data-game-cell></div>
-          <div class="game__board-cell modern " data-game-cell></div>
-          <div class="game__board-cell modern " data-game-cell></div>
-          <div class="game__board-cell modern " data-game-cell></div>
-          <div class="game__board-cell modern " data-game-cell></div>
-          <div class="game__board-cell modern " data-game-cell></div>
-        </div>
-      </section>
+      <h1 class="header__main">Welcome to Tic Tac Toe</h1>
+      <button class="btn" id="start">Start</button>
     </main>
     <footer class="footer">&copy; Leon Lonsdale</footer>
-    
-    <div class="overlay"></div>
-    <div class="modal">
-      <h2 class="modal__title">Tic Tac Toe!</h2>
-      <p class="modal__text">Line up 3 to win!</p>
-      
-      <form class="modal__form">
-        <h3 class="modal__sub-header">Player 1 (X)</h3>
-        
-        <input type="text" id="p1nameInput" placeholder="Enter name" required/>
-        <h3 class="modal__sub-header">Player 2 (O)</h3>
-        
-        <input type="text" id="p2nameInput" placeholder="Enter name"/>
-        <label class="switch">
-          <p class="switch__label">Play vs AI</p>
-          <input
-            class="switch__checkbox"
-            type="checkbox"
-            id="playai"
-          />
-          <span class="switch__slider round"></span>
-        </label>
-        <button class="btn" id="start">Start!</button>
-    </div>
-
     <script src="js/app.js"></script>
   </body>
 </html>

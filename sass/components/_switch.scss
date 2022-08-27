@@ -3,7 +3,6 @@
   display: inline-block;
   width: 6rem;
   height: 2.9rem;
-  filter: drop-shadow(3px 5px 5px rgba(0, 0, 0, 0.45));
 
   &__label {
     position: absolute;
@@ -19,11 +18,8 @@
     width: 0;
     height: 0;
     &:checked + .switch__slider {
-      background-color: var(--clr-yellow);
-    }
-
-    &:focus + .switch__slider {
-      box-shadow: 0 0 1px var(--clr-yellow);
+      background: #2a9d8f;
+      box-shadow: inset 11px 11px 22px #217c71, inset -11px -11px 22px #33bead;
     }
 
     &:checked + .switch__slider:before {
@@ -39,7 +35,8 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: var(--clr-light-grey);
+    background: var(--neu-bg-down);
+    box-shadow: var(--neu-shadow-down);
     -webkit-transition: 0.4s;
     transition: 0.4s;
 
@@ -50,7 +47,7 @@
       aspect-ratio: 1;
       left: 2px;
       bottom: 2px;
-      background-color: var(--clr-white);
+      background: var(--clr-white);
       -webkit-transition: 0.4s;
       transition: 0.4s;
     }

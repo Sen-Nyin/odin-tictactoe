@@ -2,11 +2,12 @@
 @use '../abstracts/' as a;
 
 .main {
+  text-align: center;
   padding: 5rem;
   display: grid;
+  justify-items: center;
   grid-template-rows: max-content 1fr;
   gap: 3rem;
-  height: 100%;
 }
 
 .scores {
@@ -23,17 +24,38 @@
 
 .scores {
   font-size: 3rem;
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  grid-template-columns: 1fr max-content 1fr;
+  grid-template-areas: 'p1name vs p2name' 'p1score vs p2score';
   &__player-name {
     font-weight: var(--fnt-wt-700);
   }
   &__score {
     display: grid;
     place-items: center;
-    background: var(--clr-yellow);
+    background: var(--neu-bg-default);
+    box-shadow: var(--neu-shadow-default);
     width: 7rem;
     aspect-ratio: 1;
     border-radius: 2rem;
   }
+}
+.vs {
+  grid-area: vs;
+}
+#p1nameDisplay {
+  grid-area: p1name;
+}
+#p2nameDisplay {
+  grid-area: p2name;
+}
+#p1score {
+  grid-area: p1score;
+}
+#p2score {
+  grid-area: p2score;
 }
 
 .game__board {
@@ -42,6 +64,8 @@
   justify-items: center;
   align-items: center;
   gap: 2rem;
+  padding: 3rem;
+  border-radius: 2rem;
 
   &-cell {
     display: flex;
@@ -106,4 +130,10 @@
 .symbolX,
 .symbolO {
   cursor: not-allowed;
+}
+
+.symbolX:not(.game__board),
+.symbolO:not(.game__board) {
+  background: var(--neu-bg-default);
+  box-shadow: var(--neu-shadow-default);
 }

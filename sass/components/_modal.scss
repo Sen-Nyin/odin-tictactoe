@@ -1,4 +1,4 @@
-.modal {
+.setup {
   display: grid;
   gap: 2rem;
   text-align: center;
@@ -7,9 +7,9 @@
   left: 50%;
   transform: translate(-50%, -50%);
   max-width: 80rem;
-  background-color: var(--modal-bg-colour);
+  background: var(--neu-bg-default);
+  box-shadow: var(--neu-shadow-default);
   padding: 3rem 3rem;
-  box-shadow: 0 4rem 6rem rgba(0, 0, 0, 0.3);
   z-index: 1000;
   transition: all 0.5s;
   border-radius: 2rem;
@@ -23,17 +23,18 @@
   }
 
   &__form {
-    margin-top: 6rem;
     display: flex;
     flex-direction: column;
-    background: var(--clr-super-light-grey);
+    background: var(--neu-bg-default);
+    box-shadow: var(--neu-shadow-default);
     border-radius: 2rem;
     padding: 2rem;
     gap: 2.5rem;
   }
   &__form input {
     font-size: 1.7rem;
-    background: var(--clr-white);
+    background: var(--neu-bg-down);
+    box-shadow: var(--neu-shadow-down);
     padding: 1rem 1.5rem;
     border: 1px solid var(--clr-light-grey);
     border-radius: 1.2rem;
@@ -44,7 +45,7 @@
 
   &__form label {
     font-size: var(--fnt-sz-form-label);
-    font-weight: 500;
+    font-weight: var(--fnt-wt-400);
   }
   &__form button {
     grid-column: 1 / span 2;

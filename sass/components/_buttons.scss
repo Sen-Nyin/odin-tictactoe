@@ -1,8 +1,20 @@
 .btn {
-  color: var(--clr-white);
+  color: var(--clr-dark-grey);
   text-transform: uppercase;
-  background: var(--clr-green);
-  padding: 1rem;
+  text-align: center;
+  background: var(--neu-bg-default);
+  box-shadow: var(--neu-shadow-default);
+  padding: 2rem 8rem;
   border-radius: 1rem;
+  display: block;
   cursor: pointer;
+  width: max-content;
+  &:hover {
+    background: var(--neu-bg-up);
+    box-shadow: var(--neu-shadow-default);
+  }
+  &:active {
+    background: var(--neu-bg-down);
+    box-shadow: var(--neu-shadow-down);
+  }
 }

@@ -7,10 +7,16 @@
 
   --clr-text-default: var(--clr-dark-grey);
   --clr-main-header-text: var(--clr-white);
-  --clr-footer-text: var(--clr-white);
+  --clr-footer-text: var(--clr-dark-grey);
   --modal-bg-colour: var(--clr-white);
   --board-cell-size: 10rem;
   --symbol-size: calc(var(--board-cell-size) * 0.8);
+  --neu-bg-default: linear-gradient(145deg, #d1d1d1, #f8f8f8);
+  --neu-bg-down: #e8e8e8;
+  --neu-bg-up: linear-gradient(145deg, #f8f8f8, #d1d1d1);
+  --neu-shadow-default: 1rem 1rem 2rem #b7b7b7, -1rem -1rem 2rem #ffffff;
+  --neu-shadow-down: inset 1rem 1rem 2rem #b7b7b7,
+    inset -1rem -1rem 2rem #ffffff;
 
   --clr-dark-green: #264653;
   --clr-green: #2a9d8f;
@@ -18,14 +24,14 @@
   --clr-peach: #f4a261;
   --clr-orange: #e76f51;
   --clr-white: #fdfffc;
-  --clr-dark-grey: #343a40;
+  --clr-dark-grey: #6c757d;
   --clr-medium-grey: #adb5bd;
-  --clr-light-grey: #e9ecef;
+  --clr-light-grey: ##e8e8e8;
   --clr-super-light-grey: #f8f9fa;
 
   // font
 
-  --fnt-fm-default: 'Comfortaa', cursive;
+  --fnt-fm-default: 'Ubuntu', sans-serif;
   --fnt-sz-main-header: 4rem;
   --fnt-sz-text-default: 1.6rem;
   --fnt-sz-footer-text: 1.4rem;
@@ -41,7 +47,9 @@ body {
   font-size: var(--fnt-sz-text-default);
   color: var(--clr-text-default);
   display: grid;
-  grid-template-rows: max-content 1fr max-content;
+  place-items: center;
   min-height: 100vh;
   transition: 0.4s ease;
+  background: var(--neu-bg-default);
+  box-shadow: var(--neu-shadow-default);
 }

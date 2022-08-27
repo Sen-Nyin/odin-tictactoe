@@ -7,7 +7,7 @@
 
 // Remove all the styles of the "User-Agent-Stylesheet", except for the 'display' property
 // - The "symbol *" part is to solve Firefox SVG sprite bug
-@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap');
 
 *:where(:not(html, iframe, canvas, img, svg, video):not(svg *, symbol *)) {
   all: unset;
