@@ -32,13 +32,16 @@
   --fnt-sz-footer-text: 1.4rem;
   --fnt-sz-scores-text: 2.5rem;
   --fnt-sz-settings-title: 2.5rem;
+  --fnt-sz-winner-text: 5rem;
 
   --fnt-wt-300: 300;
   --fnt-wt-400: 400;
   --fnt-wt-700: 700;
 
-  @include a.breakpoint(280, max) {
+  @include a.breakpoint(375, max) {
     --board-cell-size: 6rem;
+    --fnt-sz-scores-text: 1.4rem;
+    --fnt-sz-winner-text: 2rem;
   }
   @include a.breakpoint(md, min) {
     --fnt-sz-scores-text: 3.5rem;

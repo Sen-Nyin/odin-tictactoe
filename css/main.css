@@ -91,13 +91,16 @@ meter {
   --fnt-sz-footer-text: 1.4rem;
   --fnt-sz-scores-text: 2.5rem;
   --fnt-sz-settings-title: 2.5rem;
+  --fnt-sz-winner-text: 5rem;
   --fnt-wt-300: 300;
   --fnt-wt-400: 400;
   --fnt-wt-700: 700;
 }
-@media only screen and (max-width: 17.5em) {
+@media only screen and (max-width: 23.4375em) {
   :root {
     --board-cell-size: 6rem;
+    --fnt-sz-scores-text: 1.4rem;
+    --fnt-sz-winner-text: 2rem;
   }
 }
 @media only screen and (min-width: 48em) {
@@ -201,6 +204,11 @@ body {
   align-items: center;
   gap: 2rem;
   border-radius: 2rem;
+}
+@media only screen and (max-width: 23.4375em) {
+  .game__board {
+    border-radius: 1rem;
+  }
 }
 .game__board-cell {
   display: flex;
@@ -355,13 +363,19 @@ body {
 
 .outcome {
   display: grid;
-  grid-template-areas: "outcometext outcometext" "replaybtn newgamebtn";
+  grid-template-areas: "outcometext" "replaybtn" "newgamebtn";
   gap: 2rem;
+}
+@media only screen and (min-width: 48em) {
+  .outcome {
+    grid-template-areas: "outcometext outcometext" "replaybtn newgamebtn";
+  }
 }
 .outcome__text {
   grid-area: outcometext;
-  font-size: 5rem;
+  font-size: var(--fnt-sz-winner-text);
   color: var(--clr-white);
+  text-align: center;
 }
 .outcome__replay {
   grid-area: replaybtn;

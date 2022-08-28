@@ -76,12 +76,16 @@
 
 .outcome {
   display: grid;
-  grid-template-areas: 'outcometext outcometext' 'replaybtn newgamebtn';
+  grid-template-areas: 'outcometext' 'replaybtn' 'newgamebtn';
   gap: 2rem;
+  @include a.breakpoint(md, min) {
+    grid-template-areas: 'outcometext outcometext' 'replaybtn newgamebtn';
+  }
   &__text {
     grid-area: outcometext;
-    font-size: 5rem;
+    font-size: var(--fnt-sz-winner-text);
     color: var(--clr-white);
+    text-align: center;
   }
   &__replay {
     grid-area: replaybtn;

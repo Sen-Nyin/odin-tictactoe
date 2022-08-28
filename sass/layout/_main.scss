@@ -71,6 +71,9 @@
   align-items: center;
   gap: 2rem;
   border-radius: 2rem;
+  @include a.breakpoint(375, max) {
+    border-radius: 1rem;
+  }
 
   &-cell {
     display: flex;
