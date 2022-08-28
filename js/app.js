@@ -131,6 +131,11 @@ const TicTacToe = (function () {
       if (availableMoves(currentGameBoard).length > 0) {
         const move = minimax(currentGameBoard, turn);
         displayController.displayPlayerSymbol(cells[move.index]);
+        cells[move.index].removeEventListener(
+          'click',
+          displayController.handleCellClick,
+          { once: true }
+        );
         currentGameBoard.fill(turn, move.index, move.index + 1);
         const gameStatus = checkGameState(turn);
         if (gameStatus) {
@@ -400,6 +405,7 @@ const TicTacToe = (function () {
       displayRoundOutcome,
       updateBoardClass,
       highlightWinningCells,
+      handleCellClick,
     };
   })();
 })();
