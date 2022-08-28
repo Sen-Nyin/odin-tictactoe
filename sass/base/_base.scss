@@ -18,16 +18,11 @@
   --neu-shadow-down: inset 1rem 1rem 2rem #b7b7b7,
     inset -1rem -1rem 2rem #ffffff;
 
-  --clr-dark-green: #264653;
   --clr-green: #2a9d8f;
-  --clr-yellow: #e9c46a;
-  --clr-peach: #f4a261;
-  --clr-orange: #e76f51;
   --clr-white: #fdfffc;
   --clr-dark-grey: #6c757d;
   --clr-medium-grey: #adb5bd;
   --clr-light-grey: ##e8e8e8;
-  --clr-super-light-grey: #f8f9fa;
 
   // font
 
@@ -35,11 +30,19 @@
   --fnt-sz-main-header: 4rem;
   --fnt-sz-text-default: 1.6rem;
   --fnt-sz-footer-text: 1.4rem;
-  --fnt-sz-symbols: 5rem;
+  --fnt-sz-scores-text: 2.5rem;
+  --fnt-sz-settings-title: 2.5rem;
 
   --fnt-wt-300: 300;
   --fnt-wt-400: 400;
   --fnt-wt-700: 700;
+
+  @include a.breakpoint(280, max) {
+    --board-cell-size: 6rem;
+  }
+  @include a.breakpoint(md, min) {
+    --fnt-sz-scores-text: 3.5rem;
+  }
 }
 
 body {

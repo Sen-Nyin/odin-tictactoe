@@ -1,5 +1,4 @@
 .btn {
-  color: var(--clr-dark-grey);
   text-transform: uppercase;
   text-align: center;
   background: var(--neu-bg-default);
@@ -8,7 +7,7 @@
   border-radius: 1rem;
   display: block;
   cursor: pointer;
-  width: max-content;
+  // width: max-content;
   &:hover {
     background: var(--neu-bg-up);
     box-shadow: var(--neu-shadow-default);

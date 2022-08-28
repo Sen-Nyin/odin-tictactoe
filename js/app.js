@@ -271,9 +271,6 @@ const TicTacToe = (function () {
         player1ScoreText.classList.add('scores__score');
         player1ScoreText.setAttribute('id', 'p1score');
         player1ScoreText.textContent = '0';
-        const vsText = document.createElement('span');
-        vsText.classList.add('vs');
-        vsText.textContent = 'VS';
         const player2NameText = document.createElement('span');
         player2NameText.classList.add('scores__player-name');
         player2NameText.setAttribute('id', 'p2nameDisplay');
@@ -285,7 +282,6 @@ const TicTacToe = (function () {
         scoresElement.append(
           player1NameText,
           player1ScoreText,
-          vsText,
           player2ScoreText,
           player2NameText
         );

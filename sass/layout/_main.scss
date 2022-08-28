@@ -3,11 +3,11 @@
 
 .main {
   text-align: center;
-  padding: 5rem;
+  padding: 1.5rem;
   display: grid;
   justify-items: center;
   grid-template-rows: max-content 1fr;
-  gap: 3rem;
+  gap: 5rem;
 }
 
 .scores {
@@ -23,12 +23,16 @@
 }
 
 .scores {
-  font-size: 3rem;
+  font-size: var(--fnt-sz-scores-text);
   display: grid;
   align-items: center;
   justify-items: center;
-  grid-template-columns: 1fr max-content 1fr;
-  grid-template-areas: 'p1name vs p2name' 'p1score vs p2score';
+  grid-template-columns: 1fr max-content;
+  grid-template-areas: 'p1name p1score' 'p2name p2score';
+  @include a.breakpoint(md, min) {
+    grid-template-columns: 1fr repeat(2, max-content) 1fr;
+    grid-template-areas: 'p1name p1score p2score p2name';
+  }
   &__player-name {
     font-weight: var(--fnt-wt-700);
   }
@@ -37,19 +41,21 @@
     place-items: center;
     background: var(--neu-bg-default);
     box-shadow: var(--neu-shadow-default);
-    width: 7rem;
+    width: 4.5rem;
     aspect-ratio: 1;
-    border-radius: 2rem;
+    border-radius: 1rem;
+    @include a.breakpoint(md, min) {
+      width: 6rem;
+    }
   }
-}
-.vs {
-  grid-area: vs;
 }
 #p1nameDisplay {
   grid-area: p1name;
+  justify-self: end;
 }
 #p2nameDisplay {
   grid-area: p2name;
+  justify-self: start;
 }
 #p1score {
   grid-area: p1score;
@@ -64,7 +70,6 @@
   justify-items: center;
   align-items: center;
   gap: 2rem;
-  padding: 3rem;
   border-radius: 2rem;
 
   &-cell {

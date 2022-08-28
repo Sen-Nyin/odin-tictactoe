@@ -80,24 +80,30 @@ meter {
   --neu-shadow-default: 1rem 1rem 2rem #b7b7b7, -1rem -1rem 2rem #ffffff;
   --neu-shadow-down: inset 1rem 1rem 2rem #b7b7b7,
     inset -1rem -1rem 2rem #ffffff;
-  --clr-dark-green: #264653;
   --clr-green: #2a9d8f;
-  --clr-yellow: #e9c46a;
-  --clr-peach: #f4a261;
-  --clr-orange: #e76f51;
   --clr-white: #fdfffc;
   --clr-dark-grey: #6c757d;
   --clr-medium-grey: #adb5bd;
   --clr-light-grey: ##e8e8e8;
-  --clr-super-light-grey: #f8f9fa;
   --fnt-fm-default: "Ubuntu", sans-serif;
   --fnt-sz-main-header: 4rem;
   --fnt-sz-text-default: 1.6rem;
   --fnt-sz-footer-text: 1.4rem;
-  --fnt-sz-symbols: 5rem;
+  --fnt-sz-scores-text: 2.5rem;
+  --fnt-sz-settings-title: 2.5rem;
   --fnt-wt-300: 300;
   --fnt-wt-400: 400;
   --fnt-wt-700: 700;
+}
+@media only screen and (max-width: 17.5em) {
+  :root {
+    --board-cell-size: 6rem;
+  }
+}
+@media only screen and (min-width: 48em) {
+  :root {
+    --fnt-sz-scores-text: 3.5rem;
+  }
 }
 
 body {
@@ -119,11 +125,11 @@ body {
 
 .main {
   text-align: center;
-  padding: 5rem;
+  padding: 1.5rem;
   display: grid;
   justify-items: center;
   grid-template-rows: max-content 1fr;
-  gap: 3rem;
+  gap: 5rem;
 }
 
 .scores {
@@ -139,12 +145,18 @@ body {
 }
 
 .scores {
-  font-size: 3rem;
+  font-size: var(--fnt-sz-scores-text);
   display: grid;
   align-items: center;
   justify-items: center;
-  grid-template-columns: 1fr max-content 1fr;
-  grid-template-areas: "p1name vs p2name" "p1score vs p2score";
+  grid-template-columns: 1fr max-content;
+  grid-template-areas: "p1name p1score" "p2name p2score";
+}
+@media only screen and (min-width: 48em) {
+  .scores {
+    grid-template-columns: 1fr repeat(2, max-content) 1fr;
+    grid-template-areas: "p1name p1score p2score p2name";
+  }
 }
 .scores__player-name {
   font-weight: var(--fnt-wt-700);
@@ -154,21 +166,24 @@ body {
   place-items: center;
   background: var(--neu-bg-default);
   box-shadow: var(--neu-shadow-default);
-  width: 7rem;
+  width: 4.5rem;
   aspect-ratio: 1;
-  border-radius: 2rem;
+  border-radius: 1rem;
 }
-
-.vs {
-  grid-area: vs;
+@media only screen and (min-width: 48em) {
+  .scores__score {
+    width: 6rem;
+  }
 }
 
 #p1nameDisplay {
   grid-area: p1name;
+  justify-self: end;
 }
 
 #p2nameDisplay {
   grid-area: p2name;
+  justify-self: start;
 }
 
 #p1score {
@@ -185,7 +200,6 @@ body {
   justify-items: center;
   align-items: center;
   gap: 2rem;
-  padding: 3rem;
   border-radius: 2rem;
 }
 .game__board-cell {
@@ -269,7 +283,7 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  max-width: 80rem;
+  width: min(50rem, 90vw);
   background: var(--neu-bg-default);
   box-shadow: var(--neu-shadow-default);
   padding: 3rem 3rem;
@@ -277,8 +291,13 @@ body {
   transition: all 0.5s;
   border-radius: 2rem;
 }
+@media only screen and (max-width: 23.125em) {
+  .setup {
+    padding: 1rem;
+  }
+}
 .setup__title {
-  font-size: 2.5rem;
+  font-size: var(--fnt-sz-settings-title);
   font-weight: var(--fnt-wt-700);
   line-height: 1.5;
 }
@@ -293,14 +312,20 @@ body {
   border-radius: 2rem;
   padding: 2rem;
   gap: 2.5rem;
+  width: 100%;
+}
+@media only screen and (max-width: 23.125em) {
+  .setup__form {
+    padding: 0.8rem;
+  }
 }
 .setup__form input {
   font-size: 1.7rem;
   background: var(--neu-bg-down);
   box-shadow: var(--neu-shadow-down);
   padding: 1rem 1.5rem;
-  border: 1px solid var(--clr-light-grey);
   border-radius: 1.2rem;
+  width: 100%;
 }
 .setup__form input::placeholder {
   color: var(--clr-light-grey);
@@ -310,7 +335,6 @@ body {
   font-weight: var(--fnt-wt-400);
 }
 .setup__form button {
-  grid-column: 1/span 2;
   justify-self: center;
   margin-top: 1rem;
 }
@@ -347,7 +371,6 @@ body {
 }
 
 .btn {
-  color: var(--clr-dark-grey);
   text-transform: uppercase;
   text-align: center;
   background: var(--neu-bg-default);
@@ -356,7 +379,6 @@ body {
   border-radius: 1rem;
   display: block;
   cursor: pointer;
-  width: max-content;
 }
 .btn:hover {
   background: var(--neu-bg-up);
@@ -405,7 +427,7 @@ body {
   background: var(--neu-bg-down);
   box-shadow: var(--neu-shadow-down);
   -webkit-transition: 0.4s;
-  transition: 0.4s;
+  transition: 0.4s ease;
 }
 .switch__slider:before {
   position: absolute;
@@ -437,7 +459,6 @@ body {
   background: var(--neu-bg-down);
   box-shadow: var(--neu-shadow-down);
   border-radius: 2rem;
-  transition: 0.4s ease;
 }
 .modern:hover {
   background: var(--neu-bg-default);

@@ -38,7 +38,7 @@
     background: var(--neu-bg-down);
     box-shadow: var(--neu-shadow-down);
     -webkit-transition: 0.4s;
-    transition: 0.4s;
+    transition: 0.4s ease;
 
     &:before {
       position: absolute;
