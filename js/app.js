@@ -69,12 +69,10 @@ const TicTacToe = (function () {
     const switchTurn = () => {
       turn = turn === 'x' ? 'o' : 'x';
     };
-
     const minimax = (currentBoard, symbol) => {
       const tempBoard = currentBoard;
       // available cells
       const availMoves = availableMoves(tempBoard);
-
       // check for terminal states
       if (checkForWin('o', tempBoard)) {
         return { score: 10 };
@@ -85,7 +83,6 @@ const TicTacToe = (function () {
       }
       // collect outcomes
       const moves = [];
-
       // loop through available moves
       for (let i = 0; i < availMoves.length; i++) {
         // object to store score and index of that score
@@ -158,7 +155,6 @@ const TicTacToe = (function () {
         displayController.updateScores();
       }
     };
-
     return {
       player1,
       player2,
@@ -171,12 +167,9 @@ const TicTacToe = (function () {
       aiPlay,
     };
   })();
-
   const displayController = (function () {
     const mainElement = document.querySelector('.main');
     const startButton = document.getElementById('start');
-
-    // method
     const clearPage = () => {
       while (mainElement.firstChild) {
         mainElement.firstChild.remove();
@@ -252,7 +245,6 @@ const TicTacToe = (function () {
       setupElement.append(setupHeaderText, setupForm);
       mainElement.append(setupElement);
     };
-
     const displayGame = (e) => {
       e.preventDefault();
       const player1Name = document.getElementById('p1nameInput').value;
@@ -264,7 +256,6 @@ const TicTacToe = (function () {
           player2Name = 'Computer';
         }
         gameController.player2.name = player2Name;
-
         clearPage();
         // scores
         const scoresElement = document.createElement('section');
@@ -291,7 +282,6 @@ const TicTacToe = (function () {
           player2ScoreText,
           player2NameText
         );
-
         // game board
         const gameElement = document.createElement('section');
         gameElement.classList.add('game');
@@ -311,7 +301,6 @@ const TicTacToe = (function () {
         mainElement.append(scoresElement, gameElement);
       }
     };
-
     const displayRoundOutcome = (outcome, winner = null) => {
       const overlayElement = document.createElement('div');
       const outcomeContainer = document.createElement('div');
@@ -397,10 +386,8 @@ const TicTacToe = (function () {
         }
       }
     };
-
     // event listners
     startButton.addEventListener('click', displaySetupForm);
-
     return {
       displayPlayerSymbol,
       displayRoundOutcome,
