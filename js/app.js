@@ -155,6 +155,7 @@ const TicTacToe = (function () {
           switchTurn();
           displayController.updateBoardClass();
         }
+        displayController.updateScores();
       }
     };
 
@@ -406,6 +407,7 @@ const TicTacToe = (function () {
       updateBoardClass,
       highlightWinningCells,
       handleCellClick,
+      updateScores,
     };
   })();
 })();
